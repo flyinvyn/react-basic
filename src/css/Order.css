@@ -1,0 +1,158 @@
+body {
+    overflow-x: hidden;
+  }
+
+  .input {
+    width: 600px;
+    border-radius: 25px !important;
+  }
+
+  .rounded-pill {
+    width: 100px;
+  }
+
+  .navbar {
+    background: #ffffff;
+    box-shadow: 0px 6px 40px rgba(173, 173, 173, 0.25);
+  }
+
+  .carousel {
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
+
+  p {
+    color: #9b9b9b;
+  }
+
+  .product {
+    background: #ffffff;
+    box-shadow: 0px 0px 14px rgba(173, 173, 173, 0.25);
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .filter {
+    width: 30px;
+    height: 30px;
+    border: silver solid 1px;
+    border-radius: 35%;
+    margin-right: 170px;
+    background-color: #ffffff;
+  }
+
+  .button-min {
+    width: 30px;
+    height: 30px;
+    background-color: silver;
+    border-radius: 50%;
+    border: none;
+  }
+
+  .button-min div {
+    width: 10px;
+    height: 3px;
+    background-color: white;
+  }
+
+  .button-plus {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px;
+  }
+
+  .button-plus div {
+    font-size: 30px;
+    font-weight: 300px;
+    padding-bottom: 5px;
+  }
+
+  .inn1 {
+    margin-left: 42px;
+  }
+
+  .srch {
+    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: absolute;
+    right: 515px;
+    bottom: 18px;
+  }
+
+  .hd {
+    border: none;
+    background-color: #ffffff;
+    width: 35px;
+    height: 35px;
+    margin-right: 9px;
+  }
+  .flx{
+    display: flex;
+  }
+  .txs{
+    font-size: 15px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .category {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .d{
+      flex-direction: column;
+    }
+
+    .txs{
+      font-size: large;
+    }
+
+    .srch {
+      right: 25px;
+      bottom: 55px;
+    }
+
+    .filter {
+      margin-right: 10px;
+    }
+
+    .input {
+      width: 320px;
+    }
+
+    .inn {
+      margin-top: 40px;
+      margin-left: 80px;
+    }
+
+    .inn1 {
+      margin-top: 40px;
+      margin-left: 80px;
+    }
+    .flx{
+      flex-direction: column;
+    }
+    .m{
+      margin-left: 13px;
+    }
+    .tl{
+      margin-top: 30px;
+      margin-left: 83px;
+    }
+  }
+
+  a:link,
+  a:visited {
+    text-decoration: none !important;
+    color: black;
+    cursor: pointer !important;
+  }
