@@ -1,11 +1,11 @@
 import React from 'react'
-import Navigation from './content/Navigation'
 import Content from './content/Content'
+import NavbarItem from '../../componentPage/NavbarItem'
 
 const Category = () => {
   return (
     <>
-    <Navigation />
+    <NavbarItem />
     <br />
     <br />
     <br />

@@ -9,7 +9,7 @@ const Content = () => {
         <>
             <div className="container">
                 <nav className="nav mt-5 mb-5">
-                    <Link to='/home' className="nav-link text-secondary">Home</Link>
+                    <Link to='/home-page' className="nav-link text-secondary">Home</Link>
                     <p className="pt-2">&gt;</p>
                     <Link to='/category' className="nav-link text-secondary">Category</Link>
                     <p className="pt-2">&gt;</p>

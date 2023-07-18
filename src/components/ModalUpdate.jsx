@@ -1,9 +1,12 @@
-import axios from 'axios';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2'
+import updateProductAction from '../config/redux/action/updateProductAction';
 
-const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, children}) => {
+const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, description, children}) => {
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -12,7 +15,8 @@ const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, c
     price,
     stock,
     rate,
-    shop_name
+    shop_name,
+    description
   })
 
   const [image, setImage] = useState(null)
@@ -30,32 +34,13 @@ const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, c
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('name_product', data.name_product)
-    formData.append('price', data.price)
-    formData.append('stock', data.stock)
-    formData.append('image_product', image)
-    formData.append('rate', data.rate)
-    formData.append('shop_name', data.shop_name)
-    axios.put(`http://localhost:5000/products/${id_product}`, formData, {
-        headers: {
-            "Content-type": "multipart/form-data",
-        },
-    })
-      .then(() => {
-        alert("Product updated")
-        setShow(false)
-        window.location.reload()
-      })
-      .catch((err) => {
-        alert(err);
-        setShow(false)
-      })
+    dispatch(updateProductAction(data, image ,id_product, setShow))
+
   }
 
   return (
     <>
-      <Button variant="warning" onClick={handleShow} style={{marginRight:"10px"}}>
+      <Button variant="warning" onClick={handleShow}>
         {children}
       </Button>
 
@@ -66,7 +51,7 @@ const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, c
         <form onSubmit={handleSubmit}>
           <Modal.Body>
             <input
-              className="form-control mt-3"
+              className="form-control"
               type="text"
               placeholder="name"
               name="name_product"
@@ -110,6 +95,14 @@ const ModalUpdate = ({id_product, name_product, price, stock, rate, shop_name, c
               placeholder="shop_name"
               name="shop_name"
               value={data.shop_name}
+              onChange={handleChange}
+            />
+            <input
+              className="form-control mt-3"
+              type="text"
+              placeholder="description"
+              name="description"
+              value={data.description}
               onChange={handleChange}
             />
           </Modal.Body>

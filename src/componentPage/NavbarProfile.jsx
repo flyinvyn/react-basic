@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Nav = () => {
+const Navbar = () => {
+  const navigate = useNavigate()
+
+  const onClick =()=> {
+    localStorage.clear();
+    window.location.href = '/';
+}
   return (
     <>
     <header>
@@ -20,30 +27,14 @@ const Nav = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item ml-2">
-              <input
-                className="mr-2 input position-relative"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="srch">
-                <img src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/Search%20Glyph.png" alt="" />
-              </button>
-            </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">
-            <button className="filter">
-              <img src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/filter%201.png" alt="" />
-            </button>
-            <button className="hd">
-              <a href="./order.html">
+            <button className="hd" onClick={() => navigate('/order')}>
                 <img
                   className="mr-4"
                   src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/cart-1.png"
                   alt="cart"
                 />
-              </a>
             </button>
             <button className="hd">
               <img className="mr-4" src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/bell.png" alt="bell" />
@@ -53,18 +44,19 @@ const Nav = () => {
             </button>
             <button className="hd">
               <img
-                className="mr-4"
+                className="mr-4"onClick={() => navigate('/profile')}
                 src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/profil.png"
                 alt="profil"
               />
             </button>
+            <button className='btn btn-danger rounded-pill' onClick={onClick}>Logout</button>
           </form>
         </div>
       </div>
     </nav>
   </header>
-    </>
+  </>
   )
 }
 
-export default Nav
+export default Navbar

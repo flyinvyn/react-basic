@@ -19,9 +19,15 @@ const Signup = () => {
     console.log(data);
   }
 
-  const onClick = (e) => {
-    axios.post("http://localhost:5000/users/register", data)
-      .then((res) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('fullname', data.fullname)
+    formData.append('email', data.email)
+    formData.append('password', data.password)
+    formData.append('role', data.role)
+    axios.post(`${process.env.REACT_APP_BASEURL_USER}/register`, data)
+      .then(() => {
         alert("Register successfuly")
       })
       .catch((err) => {
@@ -125,7 +131,7 @@ const Signup = () => {
               placeholder="Password"
             />
           </div>
-          <button className={Styles.btn} onClick={onClick}>
+          <button className={Styles.btn}>
           Login
           </button>
           {/* </form> */}
@@ -140,7 +146,7 @@ const Signup = () => {
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
         >
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 type="text"
@@ -181,8 +187,8 @@ const Signup = () => {
                 onChange={onChange}
               />
             </div>
-            <button className={Styles.btn} onClick={onClick}>
-              {/* <a href="./login.html"> PRIMARY </a> */}Submit
+            <button className={Styles.btn} type='submit'>
+              Submit
             </button>
           </form>
           <p className="text-regis">

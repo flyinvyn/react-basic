@@ -2,8 +2,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import createProductAction from '../config/redux/action/createProductAction';
 
 const ModalCreate = () => {
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -12,7 +15,8 @@ const ModalCreate = () => {
     price: "",
     stock: "",
     rate: "",
-    shop_name: ""
+    shop_name: "",
+    description:""
   })
 
   const [image, setImage] = useState(null)
@@ -30,24 +34,8 @@ const ModalCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('name_product', data.name_product)
-    formData.append('price', data.price)
-    formData.append('stock', data.stock)
-    formData.append('image_product', image)
-    formData.append('rate', data.rate)
-    formData.append('shop_name', data.shop_name)
-    axios.post(process.env.REACT_APP_API_BACKEND + "products", formData)
-      .then(() => {
-        alert("Product created")
-        setShow(false)
-        window.location.reload()
-      })
-      .catch((err) => {
-        alert(err);
-        setShow(false)
-      })
-      console.log(process.env.REACT_APP_API_BACKEND);
+    dispatch(createProductAction(data, image_product, setShow))
+    
   }
 
   return (
@@ -107,6 +95,14 @@ const ModalCreate = () => {
               placeholder="shop_name"
               name="shop_name"
               value={data.shop_name}
+              onChange={handleChange}
+            />
+            <input
+              className="form-control mt-3"
+              type="text"
+              placeholder="description"
+              name="description"
+              value={data.description}
               onChange={handleChange}
             />
           </Modal.Body>

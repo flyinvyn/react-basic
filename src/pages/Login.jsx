@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Styles from '../css/style.module.css'
 import axios from 'axios'
-import { Link, useNavigate, Navigate } from 'react-router-dom'
+import { Link  } from 'react-router-dom'
 
 const Login = () => {
-  const navigate = useNavigate()
   const [data, setData] = useState({
     email: "",
     password: ""
@@ -94,9 +93,7 @@ const Login = () => {
               />
             </div>
             <div className="form-group">
-              <a className="float-right py-3 text-danger" href="#">
-                Forgot password?
-              </a>
+              <Link to={'/forgot'} className="float-right py-3 text-danger">Forgot password</Link>
               <button className={Styles.btn}>
               <Link to={"/home"}>Login</Link>
               </button>
@@ -113,7 +110,7 @@ const Login = () => {
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
         >
-          {/* <form> */}
+          <form>
             <div className="form-group">
               <input
                 type="email"
@@ -133,14 +130,12 @@ const Login = () => {
               />
             </div>
             <div className="form-group">
-              <a className="float-right py-3 text-danger" href="#">
-                Forgot password?
-              </a>
+            <Link to={'/forgot'} className="float-right py-3 text-danger">Forgot password</Link>
               <button className={Styles.btn} onClick={onClick}>
-              <Navigate to={"/home"} />
+              <Link to={'/home-page'}>Login</Link>
               </button>
             </div>
-          {/* </form> */}
+          </form>
           <p className="text-regis">
             Don't have Tokopedia account?
             <Link to={"/signup"} className='text-danger'>Sign up</Link>

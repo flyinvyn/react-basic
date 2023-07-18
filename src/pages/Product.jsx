@@ -1,122 +1,114 @@
 import React, { useEffect, useState } from 'react'
-import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
-import ModalCreate from '../components/ModalCreate';
 import ModalUpdate from '../components/ModalUpdate';
 import ModalDelete from '../components/ModalDelete';
 import { Link } from 'react-router-dom';
+import Style from '../css/Profile.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import getProductAction from '../config/redux/action/getProductAction';
+import Pagination from '../Pagination';
 
 const Product = () => {
-    const [products, setProducts] = useState([])
+    // const onHeaderClick = (e) => {
+    //     let type = e.target.textContent.toLowerCase();
+    //     const sorted = [...product].sort((a, b) => (a[type] > b[type]) ? 1 : ((b[type] > a[type]) ? -1 : 0))
+    // }
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postPerPage, setPostPerpage] = useState(3)
+    const [order, setOrder] = useState("ASC")
+    const [data, setData] = useState()
+
+    const sorting = (col) => {
+        if (order === "ASC") {
+            const sorted = [...data].sort((a, b) =>
+                a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+            );
+            setData(sorted)
+            setOrder("DSC")
+        }
+        if (order === "DSC") {
+            const sorted = [...data].sort((a, b) =>
+                a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+            );
+            setData(sorted)
+            setOrder("ASC")
+        }
+    }
+
+    const [search, setSearch] = useState("")
+    const dispatch = useDispatch()
+    const { product } = useSelector((state) => state.product)
     useEffect(() => {
-        axios.get("http://localhost:5000/products/")
-            .then((res) => {
-                setProducts(res.data.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+        dispatch(getProductAction())
     })
+
+    const lastPostIndex = currentPage * postPerPage;
+    const firstPostIndex = lastPostIndex - postPerPage;
+    const currentPosts = product.slice(firstPostIndex, lastPostIndex);
     return (
-        <div className='m-4'>
-            <header>
-                <nav className="navbar fixed-top navbar-expand-lg navbar-light">
-                    <div className="container">
-                        <img src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/blnja.png" alt="logo" />
-                        <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#navbarTogglerDemo02"
-                            aria-controls="navbarTogglerDemo02"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon" />
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                                <li className="nav-item ml-2">
-                                    <input
-                                        className="form-control mr-2 input"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search"
-                                    />
-                                    <button className="srch">
-                                        <img src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/Search%20Glyph.png" alt="" />
-                                    </button>
-                                </li>
-                            </ul>
-                            <form className="form-inline my-2 my-lg-0">
-                                <button className="filter">
-                                    <a href="./detail.html">
-                                        <img src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/filter%201.png" alt="" />
-                                    </a>
-                                </button>
-                                <button className="hd">
-                                    <img
-                                        className="mr-4"
-                                        src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/cart-1.png"
-                                        alt="cart"
-                                    />
-                                </button>
-                                <button className="hd">
-                                    <img className="mr-4" src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/bell.png" alt="bell" />
-                                </button>
-                                <button className="hd">
-                                    <img className="mr-4" src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/mail.png" alt="mail" />
-                                </button>
-                                <button className="hd">
-                                    <img
-                                        className="mr-4"
-                                        src="http://127.0.0.1:5500/react-2/public/Responsive/assets/img/profil.png"
-                                        alt="profil"
-                                    />
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+        <div>
             <br />
+            {/* <ModalCreate /> */}
+            <h3>My product</h3>
+            <div className="d-flex">
+                <Link to={'/profile'}><p>All item</p></Link>
+                <p className='ml-5'>Sold out</p>
+                <p className='ml-5'>Archived</p>
+            </div>
+            <hr />
+            <div>
+                <input type="text" placeholder='Search' className={Style.search} onChange={(e) => setSearch(e.target.value)} />
+            </div>
             <br />
-            <br />
-            <ModalCreate />
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name product</th>
+                        <th scope="col">Id</th>
+                        <th onClick={() => sorting("name_product")} scope="col">Name product</th>
                         <th scope="col">Price</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Photo</th>
                         <th scope="col">Rate</th>
                         <th scope="col">Store</th>
+                        <th scope="col">Description </th>
                         <th scope="col">Action </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => (
-                        <tr>
-                            <th>{product.id_product}</th>
-                            <td>{product.name_product}</td>
-                            <td>{product.price}</td>
-                            <td>{product.stock}</td>
-                            <td><img src={product.image_product} crossOrigin="anonymous" style={{width:100}} alt='img'/></td>
-                            <td>{product.rate}</td>
-                            <td>{product.shop_name}</td>
-                            <td>
-                                <Link to={`${product.id_product}`}>
-                                    <button className='btn btn-success' style={{ marginRight: "10px" }}>Detail</button>
-                                </Link>
-                                <ModalUpdate id_product={product.id_product} name_product={product.name_product} price={product.price}
-                                    stock={product.stock} rate={product.rate} shop_name={product.shop_name}>Update</ModalUpdate>
-                                <ModalDelete id_product={product.id_product}>Delete</ModalDelete>
-                            </td>
-                        </tr>
-                    ))}
+                    {currentPosts.filter((product) => {
+                        if (search === "") {
+                            return product
+                        } else if (product.name_product.toLowerCase().includes(search.toLowerCase())) {
+                            return product
+                        }
+                    })
+                        .map((product) => (
+                            <tr>
+                                <th>{product.id_product}</th>
+                                <td>{product.name_product}</td>
+                                <td>{product.price}</td>
+                                <td>{product.stock}</td>
+                                <td><img src={product.image_product} crossOrigin="anonymous" style={{ width: 70 }} alt='img' /></td>
+                                <td>{product.rate}</td>
+                                <td>{product.shop_name}</td>
+                                <td>{product.description}</td>
+                                <td>
+                                    <Link to={`${product.id_product}`}>
+                                        <button className='btn btn-success'>Detail</button>
+                                    </Link>
+                                    <ModalUpdate id_product={product.id_product} name_product={product.name_product} price={product.price}
+                                        stock={product.stock} rate={product.rate} shop_name={product.shop_name} description={product.description}>Update</ModalUpdate>
+                                    <ModalDelete id_product={product.id_product}>Delete</ModalDelete>
+                                </td>
+                            </tr>
+                        ))}
+                    <Pagination
+                            totalPosts={product.length}
+                            postPerPage={postPerPage}
+                            setCurrentPage={setCurrentPage}
+                            currentPage={currentPage}
+                        />
                 </tbody>
             </table>
         </div>

@@ -1,5 +1,85 @@
+.txt{
+    margin-left: auto;
+}
+
 .but{
-    background-color: aqua;
-    width: 100px;
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed silver;
+}
+
+.ed{
+    margin-right: 210px;
+    width: 100%;
+}
+
+.mtitle{
+    margin-left: 150px;
+}
+
+.pa{
+    margin-top: 10px;
+}
+
+.but1{
+    border: #DB3022 solid 1px;
+    padding-left: 20px;
+    margin-bottom: 150px;
+    border-radius: 2px;
+}
+
+.nt{
+    border: none;
+    background-color: #fff;
+    color: #DB3022;
+    padding-left: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.txt1{
+    border: silver solid 1px;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    text-align: start;
+    color: silver;
+    background-color: #fff;
+    padding-left: 10px;
+}
+
+.txt2{
+    border: silver solid 1px;
+    width: 210px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: start;
+    color: silver;
+    background-color: #fff;
+    padding-left: 10px;
+}
+
+.wrap{
+    display: flex;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.btnn{
+    border: silver solid 1px;
+    background-color: #fff;
+    width: 105px;
+    color: silver;
+    border-radius: 15px;
+    height: 28px;
+    margin-right: 10px;
+}
+@media only screen and (max-width: 600px) {
+    .txt2{
+        width: 134px;
+    }
 }

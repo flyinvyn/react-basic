@@ -1,11 +1,11 @@
 import React from 'react'
-import Nav from './content/Nav'
 import ContentCheckout from './content/ContentCheckout'
+import NavbarItem from '../../componentPage/NavbarItem'
 
 const Checkout = () => {
   return (
     <>
-    <Nav />
+    <NavbarItem />
     <ContentCheckout />
     </>
   )

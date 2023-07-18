@@ -4,6 +4,8 @@ body {
 .input {
   width: 600px;
   border-radius: 25px !important;
+  border: silver 1px solid;
+  height: 30px;
 }
 .rounded-pill {
   width: 100px;

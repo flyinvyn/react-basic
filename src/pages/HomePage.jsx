@@ -1,12 +1,12 @@
 import React from 'react'
 import '../css/Home.css'
-import NavbarHome from '../componentPage/NavbarHome'
+import NavbarItem from '../componentPage/NavbarItem'
 import Dynamic from '../components/Dynamic'
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
-      <NavbarHome />
+      <NavbarItem />
       <main className="container">
         <section>
           <div className="container">
@@ -227,4 +227,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage
